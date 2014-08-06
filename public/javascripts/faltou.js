@@ -1,29 +1,56 @@
-L.Icon.Default.imagePath = '/images';
-var map = L.map('map');
-map.setView([47.63, -122.32], 11);
+$(function() {
+    L.Icon.Default.imagePath = '/images';
+    var map = L.map('map');
 
-L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
-  maxZoom: 18,
-  minZoom: 5,
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-}).addTo(map);
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 5,
+      attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-var marker = L.marker([47.63, -122.32]);
-marker.addTo(map);
+    map.setView([-27.57, -48.62], 11);
 
-var polylinePath = [
-  [47.607204675859045, -122.3298454284668],
-  [47.60182268729636, -122.32521057128906],
-  [47.60095457276622, -122.32349395751952],
-  [47.5998260023411, -122.32237815856934],
-  [47.59842248977284, -122.32124090194701],
-  [47.59655590441905, -122.32023239135741],
-  [47.59175167310035, -122.32126235961914],
-  [47.588278460128734, -122.32057571411133],
-  [47.58329978624572, -122.31997489929199],
-  [47.579478622338286, -122.3192024230957],
-  [47.57756793579513, -122.3196315765381]
-];
+    $("#add").on('submit', function(evnt) {
+        evnt.preventDefault();
+        $.ajax({
+            url: '/add',
+            type: 'PUT',
+            sucess: function(result) {
+            },
+            data: {lon: $( "#where-lon" ).val(), lat: $( "#where-lat" ).val()}
+        });
+    });
 
-var polyline = L.polyline(polylinePath);
-polyline.addTo(map);
+    var cache = {};
+    $("#where").autocomplete({
+         minLength: 2,
+         source: function( request, response ) {
+             var term = request.term;
+             if ( term in cache ) {
+                 response( cache[ term ] );
+                 return;
+             }
+             var searchurl = "http://open.mapquestapi.com/nominatim/v1/search?format=json&q="+$("#where").val();
+             $.get(searchurl, function(data) {
+                 locations = [];
+                 $.each(data, function(index, obj) {
+                     locations.push(obj);
+                 })
+                 cache[ term ] = locations;
+                 response( locations );
+             });
+         },
+         focus: function( event, ui ) {
+             $( "#where" ).val( ui.item.display_name);
+             return false;
+         },
+         select: function( event, ui ) {
+             $( "#where-lon" ).val( ui.item.lon);
+             $( "#where-lat" ).val( ui.item.lat);
+             return false;
+         }
+
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+         return $( "<li>" ).append( "<a>" + item.display_name + "</a>" ).appendTo( ul );
+    };
+});

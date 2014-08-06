@@ -1,6 +1,35 @@
 extends layout
 
 block content
-  h1 Faltou?!
-  p registre aqui
-  #map
+  .content
+      h1 Faltou?!
+      .row
+        p registre aqui
+
+      .row
+        form#add
+          label(for='what') O quê?
+          input#what
+
+          label(for='where') Onde?
+          input#where
+
+          label(for='when') Quando?
+          input#when
+
+          button#btn-add.btn.btn-lg Registrar
+
+       .row
+          input(type="hidden")#where-lon
+          input(type="hidden")#where-lat
+
+       .row
+          if results
+            ul
+              each val in results
+                li= 'Longitude: ' + val.lon + ', Latitude: ' + val.lat
+          else
+            p Get on
+
+      .row
+          #map

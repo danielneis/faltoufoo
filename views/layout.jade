@@ -2,11 +2,14 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/leaflet.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+    script(src='/javascripts/jquery-2.1.1.min.js')
+    script(src='/javascripts/jquery-ui.min.js')
     script(src='/javascripts/leaflet.js')
     script(src='/javascripts/bootstrap.min.js')
     script(src='/javascripts/faltou.js')
