@@ -1,14 +1,4 @@
 $(function() {
-    L.Icon.Default.imagePath = '/images';
-    var map = L.map('map');
-
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 5,
-      attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    map.setView([-27.57, -48.62], 11);
 
     $("#add").on('submit', function(evnt) {
         evnt.preventDefault();

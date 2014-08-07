@@ -6,10 +6,33 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/Leaflet.markercluster/dist/MarkerCluster.Default.css')
+    link(rel='stylesheet', href='/Leaflet.markercluster/dist/MarkerCluster.css')
   body
     block content
     script(src='/javascripts/jquery-2.1.1.min.js')
     script(src='/javascripts/jquery-ui.min.js')
     script(src='/javascripts/leaflet.js')
     script(src='/javascripts/bootstrap.min.js')
+    script(src='/Leaflet.markercluster/dist/leaflet.markercluster.js')
     script(src='/javascripts/faltou.js')
+
+    script(type="text/javascript").
+      var data = !{JSON.stringify(results)};
+      $(function() {
+        L.Icon.Default.imagePath = '/images';
+        var map = L.map('map');
+
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 5,
+          attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        map.setView([-27.57, -48.62], 11);
+        var markers = new L.MarkerClusterGroup();
+        $.each(data, function(index, obj) {
+          markers.addLayer(new L.Marker([obj.lat, obj.lon]));
+        });
+        map.addLayer(markers);
+      });

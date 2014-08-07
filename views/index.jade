@@ -23,13 +23,6 @@ block content
           input(type="hidden")#where-lon
           input(type="hidden")#where-lat
 
-       .row
-          if results
-            ul
-              each val in results
-                li= 'Longitude: ' + val.lon + ', Latitude: ' + val.lat
-          else
-            p Get on
-
       .row
           #map
+
