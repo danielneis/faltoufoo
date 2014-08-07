@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= title
+    title= "Faltou luz?!"
     link(rel='stylesheet', href='/stylesheets/leaflet.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
@@ -20,19 +20,26 @@ html
     script(type="text/javascript").
       var data = !{JSON.stringify(results)};
       $(function() {
-        L.Icon.Default.imagePath = '/images';
-        var map = L.map('map');
-
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 18,
-          minZoom: 5,
-          attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        map.setView([-27.57, -48.62], 11);
-        var markers = new L.MarkerClusterGroup();
-        $.each(data, function(index, obj) {
-          markers.addLayer(new L.Marker([obj.lat, obj.lon]));
-        });
-        map.addLayer(markers);
+        if (data) {
+          L.Icon.Default.imagePath = '/images';
+          var map = L.map('map');
+       
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            minZoom: 5,
+            attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.<br/>' +
+             'Nominatim Search Courtesy of ' +
+             '<a href="http://www.mapquest.com/">MapQuest</a>' +
+             '<img width="16" height="16" src="http://developer.mapquest.com/content/osm/mq_logo.png" alt="" style="margin-top: -6px;">'
+          }).addTo(map);
+       
+          map.setView([-27.57, -48.62], 11);
+          var markers = new L.MarkerClusterGroup();
+          $.each(data, function(index, obj) {
+              if(obj.lat && obj.lon) {
+                markers.addLayer(new L.Marker([obj.lat, obj.lon]));
+              }
+          });
+          map.addLayer(markers);
+        }
       });

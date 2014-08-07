@@ -1,27 +1,28 @@
 extends layout
 
 block content
-  .content
-      h1 Faltou?!
+  .container
       .row
-        p registre aqui
+        h2 Faltou luz?!
 
       .row
-        form#add
-          label(for='what') O quê?
-          input#what
+        form(role='form')#add
+          .form-group#where-group
+            label(for='where').control-label Onde?
+            input#where.form-control
+            span.where-help.help-block.hidden obrigatório
 
-          label(for='where') Onde?
-          input#where
+          .form-group#when-group
+            label(for='when').control-label Quando?
+            input#when.form-control
+            span.when-help.help-block.hidden obrigatório
 
-          label(for='when') Quando?
-          input#when
 
-          button#btn-add.btn.btn-lg Registrar
+          button(type='submit')#btn-add.btn.btn-lg Registrar
 
        .row
-          input(type="hidden")#where-lon
-          input(type="hidden")#where-lat
+          input(type='hidden')#where-lon
+          input(type='hidden')#where-lat
 
       .row
           #map

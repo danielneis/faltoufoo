@@ -1,13 +1,26 @@
 $(function() {
 
     $("#add").on('submit', function(evnt) {
-        evnt.preventDefault();
+        var error = false;
+        if (!$("#when").val()) {
+            $("#when-group").addClass("has-error");
+            $(".when-help").removeClass("hidden");
+            error = true;
+        }
+        if (!$("#where-lat").val() || !$("#where-lon").val()) {
+            $("#where-group").addClass("has-error");
+            $(".where-help").removeClass("hidden");
+            error = true;
+        }
+        if (error) {
+            return false;
+        }
         $.ajax({
             url: '/add',
             type: 'PUT',
             sucess: function(result) {
             },
-            data: {lon: $( "#where-lon" ).val(), lat: $( "#where-lat" ).val()}
+            data: {lon: $( "#where-lon" ).val(), lat: $( "#where-lat" ).val(), when: $("#when").val()}
         });
     });
 
@@ -43,4 +56,7 @@ $(function() {
     }).autocomplete( "instance" )._renderItem = function( ul, item ) {
          return $( "<li>" ).append( "<a>" + item.display_name + "</a>" ).appendTo( ul );
     };
+
+    $("#when").datepicker({ minDate: -7, maxDate: "+0D" });
+    $("#when").datepicker( "option", "dateFormat", 'dd/mm/yy' );
 });
