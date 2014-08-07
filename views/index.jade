@@ -13,13 +13,13 @@ block content
           .form-group#where-group
             h3
               label(for='where').control-label Onde?
-            input#where.form-control
+            input(placeholder='Digite o nome da rua onde faltou luz ou compartilhe sua localização e aguarde...')#where.form-control
             span.where-help.help-block.hidden obrigatório
 
           .form-group#when-group
             h3
               label(for='when').control-label Quando?
-            input#when.form-control
+            input(placeholder='Selecine a data, entre últimos 7 dias...')#when.form-control
             span.when-help.help-block.hidden obrigatório
 
 
@@ -33,3 +33,38 @@ block content
         h2 Onde falta luz?!
         #map
 
+      .row.text-left
+        .col-md-6
+          h2 Dúvidas? Sugestões?
+          a(href="mailto:contato@faltouluz.com") contato@faltouluz.com
+
+        .col-md-6
+          h2 Sobre o faltouluz.com
+          p.
+            Este é um site colaborativo,
+            onde podemos marcar no mapa
+            momentos de falta de "luz",
+            ou energia elétrica.
+
+          p.
+            Inspirado no site
+             <a href="http://www.faltouagua.com">faltouagua.com</a>,
+            este site é construído com tecnologias livres,
+            e seu código está disponível abertamente no
+            <a href="http://github.com/danielneis/faltoufoo">repositório no github</a>.
+
+          p Entre as tecnologias utilizadas, podemos citar:
+
+          ul
+           li
+            a(href="http://nodejs.org/") Node.js
+           li
+            a(href="http://expressjs.com/") Express
+           li
+            a(href="http://www.mongodb.org/") MongoDB
+           li
+            a(href="http://leafletjs.com/") Leaflet
+           li
+            a(href="http://openstreetmap.org/") OpenStreetMap
+           li
+            a(href="http://www.mapquest.com/") MapQuest
