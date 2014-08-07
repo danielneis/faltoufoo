@@ -32,8 +32,53 @@ html
              '<a href="http://www.mapquest.com/">MapQuest</a>' +
              '<img width="16" height="16" src="http://developer.mapquest.com/content/osm/mq_logo.png" alt="" style="margin-top: -6px;">'
           }).addTo(map);
-       
+
           map.setView([-27.57, -48.62], 11);
+          if (navigator.geolocation) {
+              
+              navigator.geolocation.getCurrentPosition(
+                function(position) {
+
+                    map.setView([position.coords.latitude, position.coords.longitude], 11);
+
+                    var searchurl = "http://open.mapquestapi.com/nominatim/v1/reverse.php?format=json" +
+                                      "&lat="+position.coords.latitude+"&lon="+position.coords.longitude;
+
+                    $.ajax({
+                        url: searchurl,
+                        beforeSend: function() {
+                            $("#where").css('background-image', 'url("../images/ajax-loader.gif")');
+                        },
+                        success: function(data) {
+                            $("#where").val( data.display_name);
+                            $("#where-lon").val(position.coords.longitude);
+                            $("#where-lat").val(position.coords.latitude);
+                            $("#where").css('background-image', 'none');
+                        }
+                    });
+                },
+                function(error) {
+                      switch(error.code) {
+                          case 1:
+                              console.log("User denied the request for Geolocation.");
+                              break;
+                          case error.POSITION_UNAVAILABLE:
+                              console.log("Location information is unavailable.");
+                              break;
+                          case error.TIMEOUT:
+                              console.log("The request to get user location timed out.");
+                              break;
+                          case error.UNKNOWN_ERROR:
+                              console.log("An unknown error occurred.");
+                              break;
+                      }
+                      map.setView([-27.57, -48.62], 11);
+                }
+              );
+          } else {
+              $("#where").css('background-image', 'none');
+          }
+
           var markers = new L.MarkerClusterGroup();
           $.each(data, function(index, obj) {
               if(obj.lat && obj.lon) {

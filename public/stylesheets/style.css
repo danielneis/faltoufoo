@@ -11,3 +11,7 @@ a {
   height: 400px;
   margin: 2em;
 }
+
+#where {
+    background-repeat: no-repeat;
+}
