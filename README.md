@@ -1,18 +1,20 @@
-Faltou foo
+# Faltou foo
 
 Este projeto visa registrar localizações ondem faltam coisas.
 
 àgua, energia elétrica, saneamento, iluminação pública, calçamento...
 
+uma versão para mapear a falta de energia elétrica está disponível em www.faltouluz.com
+
 este projeto foi fortemente inspirado no site www.faltouagua.com
 
-Esta aplicação utiliza o Express.js e o MongoDB.
+Esta aplicação utiliza Node.js, Express, MongoDB, Leaflet, OpenStreetMap e MapQuest.
 
-Para executar a aplicação faça:
+Para executar a aplicação, a partir do diretório onde você fez o clone do código, faça:
 
-$ git clone https://github.com/Leaflet/Leaflet.markercluster.git public/Leaflet.markercluster
-$ ./bin/www
+    $ git clone https://github.com/Leaflet/Leaflet.markercluster.git public/Leaflet.markercluster
+    $ ./bin/www
 
-O servidor web será iniciado na porta 3000.
+Acesse http://localhost:3000 no seu navegador.
 
-Você deve ter configurado uma instância do MongoDB, rodando na porta padrão.
+Você deve ter configurado uma instância do MongoDB, executando na porta padrão.
