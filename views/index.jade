@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .container
+  .container.text-center
       .row
         h2 Faltou luz?!
 
@@ -11,22 +11,25 @@ block content
       .row
         form(role='form')#add
           .form-group#where-group
-            label(for='where').control-label Onde?
+            h3
+              label(for='where').control-label Onde?
             input#where.form-control
             span.where-help.help-block.hidden obrigatório
 
           .form-group#when-group
-            label(for='when').control-label Quando?
+            h3
+              label(for='when').control-label Quando?
             input#when.form-control
             span.when-help.help-block.hidden obrigatório
 
 
-          button(type='submit')#btn-add.btn.btn-lg Registrar
+          button(type='submit')#btn-add.btn.btn-lg.btn-success Mostra no mapa!
 
-       .row
+      .row
           input(type='hidden')#where-lon
           input(type='hidden')#where-lat
 
       .row
-          #map
+        h2 Onde falta luz?!
+        #map
 
