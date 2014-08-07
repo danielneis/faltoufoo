@@ -10,10 +10,9 @@ Esta aplicação utiliza o Express.js e o MongoDB.
 
 Para executar a aplicação faça:
 
-$ npm install
+$ git clone https://github.com/Leaflet/Leaflet.markercluster.git public/Leaflet.markercluster
 $ ./bin/www
 
 O servidor web será iniciado na porta 3000.
 
-Você deve ter configurado uma instância do MongoDB,
-rodando na porta padrão.
+Você deve ter configurado uma instância do MongoDB, rodando na porta padrão.
