@@ -1,27 +1,22 @@
 $(function() {
 
     $("#add").on('submit', function(evnt) {
-        var error = false;
         if (!$("#when").val()) {
-            $("#when-group").addClass("has-error");
-            $(".when-help").removeClass("hidden");
-            error = true;
+            $("#whengroup").addClass("has-error");
+            $(".whenhelp").removeClass("hidden");
+            evnt.preventDefault();
+        } else {
+            $("#whengroup").removeClass("has-error");
         }
-        if (!$("#where-lat").val() || !$("#where-lon").val()) {
-            $("#where-group").addClass("has-error");
-            $(".where-help").removeClass("hidden");
-            error = true;
+
+        if (!$("#where").val() || !$("#wherelat").val() || !$("#wherelon").val()) {
+            $("#wheregroup").addClass("has-error");
+            $(".wherehelp").removeClass("hidden");
+            evnt.preventDefault();
+        } else {
+            $("#wheregroup").removeClass("has-error");
         }
-        if (error) {
-            return false;
-        }
-        $.ajax({
-            url: '/add',
-            type: 'PUT',
-            sucess: function(result) {
-            },
-            data: {lon: $( "#where-lon" ).val(), lat: $( "#where-lat" ).val(), when: $("#when").val()}
-        });
+
     });
 
     var cache = {};
@@ -48,8 +43,9 @@ $(function() {
              return false;
          },
          select: function( event, ui ) {
-             $( "#where-lon" ).val( ui.item.lon);
-             $( "#where-lat" ).val( ui.item.lat);
+             $( "#where" ).val( ui.item.display_name);
+             $( "#wherelon" ).val( ui.item.lon);
+             $( "#wherelat" ).val( ui.item.lat);
              return false;
          }
 

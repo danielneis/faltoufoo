@@ -12,25 +12,25 @@ block content
         img(style="position: absolute; top: 0; right: 0; border: 0;", src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png")
 
       .row
-        form(role='form')#add
-          .form-group#where-group
+        form(action="/", method='post', role='form')#add
+          .form-group#wheregroup
             h3
               label(for='where').control-label Onde?
             input(placeholder='Digite o nome da rua onde faltou luz ou compartilhe sua localização e aguarde...')#where.form-control
-            span.where-help.help-block.hidden obrigatório
+            span.wherehelp.help-block.hidden obrigatório
 
-          .form-group#when-group
+          .form-group#whengroup
             h3
               label(for='when').control-label Quando?
             input(placeholder='Selecione a data, entre os últimos 7 dias...')#when.form-control
-            span.when-help.help-block.hidden obrigatório
+            span.whenhelp.help-block.hidden obrigatório
 
+          input(name="wherelon",type='hidden')#wherelon
+          input(name="wherelat",type='hidden')#wherelat
 
           button(type='submit')#btn-add.btn.btn-lg.btn-success Mostrar no mapa!
 
       .row
-          input(type='hidden')#where-lon
-          input(type='hidden')#where-lat
 
       .row
         h2 Onde falta luz?!

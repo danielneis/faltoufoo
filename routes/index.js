@@ -18,16 +18,16 @@ router.get('/', function(req, res) {
     });
 });
 
-router.put('/add', function(req, res) {
+router.post('/', function(req, res) {
 
     MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
         if(err) throw err;
 
         var collection = db.collection('faltas');
-        collection.insert({lat: req.body.lat, lon: req.body.lon}, function(err, docs) {
+        collection.insert({lat: req.body.wherelat, lon: req.body.wherelon}, function(err, docs) {
             console.log(docs);
             db.close();
-            res.send('');
+            res.redirect('/');
         });
     });
 
